@@ -13,7 +13,6 @@ class ContactForm extends React.Component {
   numberInputId = uuidv4();
 
   handleChange = event => {
-    // console.log(event.currentTarget.value);
     const { name, value } = event.currentTarget;
 
     this.setState({
@@ -23,7 +22,6 @@ class ContactForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    // console.log(this.state);
     this.props.onSubmit(this.state); // отправляем значения сабмита в пропс
     this.setState({ name: '', number: '' }); //обнуляем форму
   };
@@ -32,34 +30,33 @@ class ContactForm extends React.Component {
     const { name, number } = this.state;
     return (
       <div>
-        <form id="contact" onSubmit={this.handleSubmit}>
-          <label htmlFor={this.nameInputId}>
+        <form className={s.form} id="contact" onSubmit={this.handleSubmit}>
+          <label className={s.item} htmlFor={this.nameInputId}>
             Name
             <input
-              className="input-field"
+              className={s.input}
               type="text"
               name="name"
               value={name}
               onChange={this.handleChange}
               id={this.nameInputId}
-              placeholder="John Dows"
+              placeholder="Rubeus Hagrid"
             />
           </label>
-          <br />
-          <label htmlFor={this.numberInputId}>
+          <label className={s.item} htmlFor={this.numberInputId}>
             Phone number
             <input
-              className="input-field"
+              className={s.input}
               type="text"
               name="number"
               value={number}
               onChange={this.handleChange}
               id={this.numberInputId}
-              placeholder="459-12-56"
+              placeholder="888-88-88"
             />
           </label>
 
-          <button type="submit" className="submit-button">
+          <button className={s.button} type="submit">
             Add contact
           </button>
         </form>

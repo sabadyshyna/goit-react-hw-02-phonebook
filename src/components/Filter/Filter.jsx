@@ -3,9 +3,14 @@ import s from './Filter.module.css';
 
 function Filter({ value, onChange }) {
   return (
-    <label>
+    <label className={s.filter}>
       Find contacts by name
-      <input type="text" value={value} onChange={onChange} />
+      <input
+        className={s.input}
+        type="text"
+        value={value}
+        onChange={onChange}
+      />
     </label>
   );
 }
