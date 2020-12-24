@@ -25,13 +25,17 @@ class App extends React.Component {
       number,
     };
 
+    const isNumberInContacts = this.state.contacts.some(
+      contact => contact.number === number,
+    );
+
     if (
-      this.state.contacts.find(
+      this.state.contacts.some(
         contact => contact.name.toLowerCase() === name.toLowerCase(),
       )
     ) {
       alert(`${name} is already in contacts`);
-    } else if (this.state.contacts.find(contact => contact.number === number)) {
+    } else if (isNumberInContacts) {
       alert(`${number} is already in contacts`);
     } else {
       this.setState(({ contacts }) => ({
@@ -60,17 +64,29 @@ class App extends React.Component {
   };
 
   render() {
+    const { contacts, filter } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    const visibleContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter),
+    );
+
     return (
       <Container>
         <h1>Phonebook</h1>
         <ContactForm onSubmit={this.addContact} />
 
         <h2>Contacts</h2>
-        <Filter value={this.state.filter} onChange={this.onChangeFilter} />
-        <ContactList
-          contacts={this.visibleContacts()}
-          onDeleteContact={this.deleteContact}
-        />
+        {contacts.length > 0 && (
+          <Filter value={filter} onChange={this.onChangeFilter} />
+        )}
+        {visibleContacts.length ? (
+          <ContactList
+            contacts={visibleContacts.length ? visibleContacts : contacts}
+            onDeleteContact={this.deleteContact}
+          />
+        ) : (
+          <p>No contacts yet.</p>
+        )}
       </Container>
     );
   }

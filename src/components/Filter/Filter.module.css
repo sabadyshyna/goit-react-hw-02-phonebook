@@ -5,6 +5,7 @@
   box-shadow: 0px 0px 15px 5px rgba(41, 162, 198, 0.2);
   background-color: rgba(41, 162, 198, 0.2);
   min-width: 395px;
+  margin-bottom: 15px;
 }
 
 .input {
